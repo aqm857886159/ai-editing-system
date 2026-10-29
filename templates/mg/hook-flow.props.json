@@ -1,0 +1,8 @@
+{ "name": "Hook 固定流程（Apple 风）", "box": { "width": 900, "height": 440 }, "durationInFrames": 777,
+  "props": [
+    {"key":"title","type":"text","defaultValue":"AI 做设计前，固定五步"},
+    {"key":"step1..step5","type":"text","defaultValue":"先说要做成什么样子 / 先出一个小样 / 再去读设计系统 / 出大致框架 / 等我确认才能动手"},
+    {"key":"hookLabel","type":"text","defaultValue":"Hook"},{"key":"hookText","type":"text","defaultValue":"每轮对话自动提醒，不许跳步"},
+    {"key":"blue","type":"color","defaultValue":"#0A84FF"},{"key":"font","type":"font","defaultValue":"Noto Sans SC"}
+  ],
+  "placement": { "left": 90, "top": 890, "when": "讲『他先要跟我说他要做成什么样子』开始（第 N 步出现帧写死在代码里：10/60/141/198/262，Hook 横幅 395）" } }

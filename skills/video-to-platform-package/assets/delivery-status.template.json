@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "project": "",
+  "checked_at": null,
+  "media": {"path_local": "", "sha256": "", "width": null, "height": null, "duration_s": null},
+  "platforms": {
+    "douyin": {"state": "not_requested"},
+    "xiaohongshu": {"state": "not_requested"},
+    "bilibili": {"state": "not_requested"},
+    "x": {"state": "not_requested"}
+  },
+  "record_fields": ["account_display_name", "state", "submitted_at", "checked_at", "title_submitted", "description_submitted", "covers_applied", "cover_fallback", "post_id", "public_url", "public_page_verified", "public_link_status", "management_url", "receipt_path", "next_action"],
+  "state_values": ["draft", "submitted", "processing", "published", "failed", "blocked", "unknown", "not_requested"]
+}

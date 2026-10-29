@@ -1,0 +1,7 @@
+{ "name": "开头痛点（Apple 风）", "box": { "width": 920, "height": 168 }, "durationInFrames": 215,
+  "props": [
+    {"key":"s1","type":"text","defaultValue":"每天改一点"},{"key":"s2","type":"text","defaultValue":"越改越乱"},{"key":"s3","type":"text","defaultValue":"改不动了"},
+    {"key":"t2","type":"number","defaultValue":62,"note":"第二步出现的帧（对齐语音）"},{"key":"t3","type":"number","defaultValue":125,"note":"第三步出现的帧"},
+    {"key":"danger","type":"color","defaultValue":"#FF453A"},{"key":"font","type":"font","defaultValue":"Noto Sans SC"}
+  ],
+  "placement": { "left": 80, "top": 930, "when": "视频第 0 帧起，约 7 秒" } }

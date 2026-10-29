@@ -1,0 +1,49 @@
+<!doctype html><html><head><meta charset="utf-8"><script src="kit.js"></script></head><body><script>
+// 组件样例：gallery.html#组件名，加 &guides 显示字幕带和人物小窗。内容取自 2026-10-24 那一片，仅作示范
+const A = 'assets/samples/';
+const SAMPLES = {
+  interlude: () => KIT.interlude({ image: A + 'apprentice.jpg', kicker: '几千年来', title: '学徒制', sub: '跟着师傅，在干活里学' }),
+  definition: () => KIT.definition({ term: '在做中学', en: 'Learning by doing', text: '先动手做出一个[能用的东西]，在做的过程中发现[自己不会什么]，再去补。', marks: [2.2, 3.6], note: '本片的说法，不是教育学的严格定义', noteT: 5 }),
+  question: () => KIT.question({ question: '你最想拿哪个产品，当你的师傅？', blank: '？', hint: '可以先暂停，想一个具体的产品' }),
+  bigNumber: () => KIT.bigNumber({ image: A + 'factory.jpg', label: '一个老师，平均要带', value: 50, unit: ' 个学生', note: '示意数字，用前请换成核实过的口径' }),
+  compare: () => KIT.compare({ kicker: '同样学一门手艺', title: '一个人，能教多少人？', items: [{ label: '学徒制', en: 'Apprenticeship', value: '1 : 3', note: '一个师傅带三个徒弟', t: .8 }, { label: '学校', en: 'School', value: '1 : 50', note: '一个老师对五十个学生', t: 1.2 }, { label: 'AI', en: 'With AI', value: '1 : ∞', note: '一个 AI 陪每一个人', t: 1.6 }], focus: [[3, 0], [5, 1], [7, 2]], pushFocus: true, verdict: '规模越大，每个人分到的反馈越少', verdictT: 8.6, dur: 11 }),
+  verdict: () => KIT.verdict({ tag: '长期来看', parts: [{ text: '先学后做' }, { text: '不是因为它更好', key: true }, { text: '，是因为师傅太贵' }], en: 'It was never better, just cheaper' }),
+  categoryNav: () => KIT.categoryNav({ title: '好的学法，需要四样东西', items: [{ label: '标准', en: 'Standard', icon: A + 'icon-standard.png' }, { label: '动手', en: 'Practice', icon: A + 'icon-practice.png' }, { label: '反馈', en: 'Feedback', icon: A + 'icon-feedback.png' }, { label: '追问', en: 'Why', icon: A + 'icon-why.png' }], active: [[2.4, 1]], dur: 6 }),
+  chain: () => KIT.chain({ kicker: '我做软件的方式', title: '先做 0.1 版', steps: [{ label: '和 AI 一起做出初版', en: 'Build', t: 1, sub: '不会写代码也没关系，先有一个能跑的东西' }, { label: '和顶尖产品并排对比', en: 'Compare', t: 3, sub: '把差距一条条写下来，能量化的量化' }, { label: '每次只追一个差距', en: 'Close one gap', t: 5, sub: '先问为什么，再动手改' }, { label: '再对比', en: 'Repeat', t: 7, sub: '每个差距，都是一节课' }], dur: 10 }),
+  evidence: () => KIT.evidence({ source: 'Bloom, B. S. (1984). The 2 Sigma Problem', cover: { org: 'Educational Researcher', title: 'The 2 Sigma Problem', sub: 'Benjamin S. Bloom · 1984' }, lines: ['研究比较了三种教学条件下学生的成绩：', '普通课堂、掌握学习，以及一对一辅导。', '接受一对一辅导的普通学生，', '平均成绩超过了约 98% 的课堂学生。', '（示意排版，引用时以原文为准）'], hl: { line: 3, from: 4, to: 17, t: 4.4 }, dur: 8 }),
+  chart: () => KIT.chart({ kicker: '对标学习的代价', title: '一开始很慢，后面越来越快', values: [1, 1.2, 1.3, 1.5, 1.8, 2.3, 3, 4.1, 5.6, 7.6, 10], xLabels: ['第 1 月', '第 3 月', '第 5 月'], annotate: { text: '越追越快', t: 5.2 }, source: '示意曲线，不代表实测数据' }),
+  formula: () => KIT.formula({
+    eq: '好的学法 =', dur: 14,
+    slots: [{ label: '标准', en: 'Standard', icon: A + 'icon-standard.png' }, { label: '动手', en: 'Practice', icon: A + 'icon-practice.png' }, { label: '反馈', en: 'Feedback', icon: A + 'icon-feedback.png' }, { label: '追问', en: 'Why', icon: A + 'icon-why.png' }],
+    header: [[0, { title: '学校', big: '1 : 50', bigLabel: '一个老师，对五十个学生', sum: '能规模化了，动手和反馈却没了', sumAt: 9 }]],
+    changes: [[[.9, 'on', '课本和考试']], [[1.2, 'on', '跟着干活'], [3.4, 'off', '先学后做']], [[1.5, 'on', '当场纠正'], [6.2, 'off', '期末才知道']], [[1.8, 'on', '随时问师傅'], [9.0, 'wait', '?'], [11.4, 'sig', '只能靠你自己']]],
+  }),
+  layerStack: () => KIT.layerStack({ kicker: '一门手艺，怎么学会', title: '五层', bottomUp: true, dur: 14,
+    items: [{ label: '标准', en: 'Standard', icon: A + 'icon-standard.png', sub: '先知道什么叫好' }, { label: '示范', en: 'Demo', sub: '看懂高手怎么做' }, { label: '动手', en: 'Practice', icon: A + 'icon-practice.png', sub: '自己做一遍' }, { label: '反馈', en: 'Feedback', icon: A + 'icon-feedback.png', sub: '做错了马上知道' }, { label: '追问', en: 'Why', icon: A + 'icon-why.png', sub: '问清楚为什么' }],
+    active: [[2, 0], [3.6, 2], [5.2, 3]], overview: 7, compare: { cols: ['学徒', '学校'], t: 8, marks: [['good', 'good'], ['good', 'good'], ['good', 'bad'], ['good', 'bad'], ['good', '']] } }),
+  scaleCompare: () => KIT.scaleCompare({ kicker: '一个人，能教多少人', title: '师傅和老师，差在规模', a: { label: '一个师傅', value: 3, display: '3 人' }, b: { label: '一个老师', value: 50, display: '50 人' }, ratio: '约 17 倍', source: '示意数字' }),
+  tableHighlight: () => KIT.tableHighlight({ kicker: '三种学法', title: '反馈来得多快？', cols: ['学法', '师生比', '动手', '反馈'], rows: [['学徒制', '1 : 3', '每天', '当场'], ['学校', '1 : 50', '偶尔', '期末'], ['AI 陪练', '1 : 1', '每天', '几秒']], hl: { row: 2, col: 3, t: 3 }, source: '示意数据，用前替换为核实口径' }),
+  callout: () => KIT.callout({ items: [{ x: 470, y: 620, label: '操作工', en: 'Operator', len: 140 }, { x: 1250, y: 420, label: '纺纱机', en: 'Spinning frame', side: 'left', len: 120, t: .7 }] }),
+  abCompare: () => KIT.abCompare({ kicker: '同一件事，两种学法', title: '跟着做 vs 先听讲', a: { label: '跟着师傅', en: 'Apprentice', image: A + 'apprentice.jpg', note: '做错了当场改' }, b: { label: '流水线', en: 'Factory', image: A + 'factory.jpg', note: '只管自己那一步' }, winner: 0, winnerT: 2.4, verdict: '反馈越近，学得越快', verdictT: 3.4 }),
+  citationOverlay: () => KIT.citationOverlay({ title: 'The 2 Sigma Problem', lines: ['Bloom, 1984：一对一辅导的学生，平均成绩超过约 98% 的课堂学生', '（示意，引用时以原文为准）'] }),
+  wordWall: () => KIT.wordWall({ terms: ['跟着干活', '当场纠正', '随时追问', '先学后做', '课本', '考试', '期末成绩', 'AI 陪练', '对标产品'].map((x, i) => ({ text: x, t: .5 + i * .55 })), kicker: '几千年来，学一门手艺', title: '学法', titleT: 6, dur: 9 }),
+  splitBar: () => KIT.splitBar({ kicker: '一天 24 小时', title: '时间都去哪了', dur: 9, total: { label: '合计', display: '24 小时' },
+    parts: [{ label: '睡觉', value: 8, display: '8 小时', tone: 'accent', t: .4 }, { label: '上班', value: 10, display: '10 小时', tone: 'sig', t: .8, inside: '≈ 42%' }, { label: '其他', value: 6, display: '6 小时', tone: 'dim', t: 1.2 }],
+    focus: [[3, 1], [6, 0]], notes: [[3, '上班占得最多'], [6, '睡觉其次：别省它']], source: '示意数字' }),
+  nextUp: () => KIT.nextUp({ kicker: '下一集 · ③ 教', title: '学会了，为什么还要讲给别人听', image: A + 'factory.jpg', iw: 1920, ih: 1080, crop: [200, 300, 1500, 300], ring: [760, 330, 420, 240], tag: { value: '1 : 3', label: '一个师傅带三个徒弟', note: '示意画面，用时换成真实截图' }, source: '示意图片', series: '合集《学徒制》', eps: ['① 看', '② 做', '③ 教'], next: 2 }),
+  sideNav: () => KIT.sideNav({ dur: 9, x: 1290, w: 570, title: '学一门手艺的三步', items: [{ label: '看', en: 'Watch', sub: '先看高手怎么做' }, { label: '做', en: 'Do', sub: '马上动手', note: '做错了当场改', noteT: 4 }, { label: '教', en: 'Teach', sub: '讲给别人听' }],
+    active: [[.4, 0], [3, 1], [6, 2, 'sig']] }),
+  lowerThird: () => KIT.lowerThird({ role: '受访者 · 纺纱厂操作工', name: '示例姓名', sub: 'Sample name' }),
+  categoryNavPics: () => KIT.categoryNav({ title: '学一门手艺，常见的三种情况', items: [{ kicker: '情况一', label: '跟着师傅干', image: A + 'apprentice.jpg' }, { kicker: '情况二', label: '进厂当学徒', image: A + 'factory.jpg' }, { kicker: '情况三', label: '自己摸索', image: A + 'host.jpg', pos: 'center 30%' }], active: [[3, 0]], dur: 6 }),
+  sourceFrame: () => KIT.sourceFrame({ source: '《纺织厂纪录片》', sub: '示意素材', image: A + 'factory.jpg' }),
+  sourceFrameVideo: () => KIT.sourceFrame({ source: '新闻素材', sub: '示意 · 2025 年 5 月', backdrop: A + 'apprentice.jpg', previewClip: A + 'apprentice.jpg' }),
+  replayTag: () => KIT.replayTag({ speed: '0.5×', pip: true, pipLabel: '我第一次看到' }),
+  sectionTag: () => KIT.sectionTag({ kicker: '情况一', text: '跟着师傅干', step: [1, 3] }),
+  backText: () => KIT.backText({ words: ['师傅', '带徒弟'], key: 1, fg: A + 'host-cut.png' }),
+  roleCard: () => KIT.roleCard({ roles: [{ label: '师傅', en: 'Master', photo: A + 'apprentice.jpg', pos: '85% 20%', says: [{ text: '我缺人手', t: .9 }, { text: '手艺得有人接', t: 1.5 }] }], dur: 6 }),
+  roleCard2: () => KIT.roleCard({ kicker: '学徒制里的两方', title: '各自想要什么', roles: [{ label: '师傅', en: 'Master', photo: A + 'apprentice.jpg', pos: '85% 20%', says: [{ text: '我缺人手', t: 1 }, { text: '手艺得有人接', t: 1.4 }] }, { label: '徒弟', en: 'Apprentice', photo: A + 'apprentice.jpg', pos: '45% 40%', says: [{ text: '我想学手艺', t: 1.8 }, { text: '管吃住就行', t: 2.2 }] }], links: [{ from: 0, to: 1, label: '教手艺', t: 3 }, ], active: [[5, 1]], dur: 8 }),
+};
+const [name, ...flags] = location.hash.slice(1).split('&');
+// 叠加层组件预览时垫一张底图（&guides 或 &bg）；导出 ProRes 时不加
+bootKit((SAMPLES[name] || SAMPLES.formula)(), { guides: flags.includes('guides'), backdrop: flags.some(f => f === 'guides' || f === 'bg') ? A + (name === 'backText' ? 'host.jpg' : 'factory.jpg') : '' });
+</script></body></html>

@@ -1,0 +1,68 @@
+{
+  "bidao/progress-bar": {
+    "loudness_lufs": -19.9,
+    "loudness_range_lu": 7.4,
+    "true_peak_dbtp": -0.4,
+    "silent_share": 0.009
+  },
+  "bidao/textbook-wrong": {
+    "loudness_lufs": -18.6,
+    "loudness_range_lu": 6.2,
+    "true_peak_dbtp": 0.3,
+    "silent_share": 0.002
+  },
+  "hetongxue/7500-lightyears": {
+    "loudness_lufs": -15.0,
+    "loudness_range_lu": 6.9,
+    "true_peak_dbtp": -0.6,
+    "silent_share": 0.001
+  },
+  "hetongxue/pocket4": {
+    "loudness_lufs": -17.1,
+    "loudness_range_lu": 5.6,
+    "true_peak_dbtp": 0.7,
+    "silent_share": 0.0
+  },
+  "linchao/exponential": {
+    "loudness_lufs": -10.3,
+    "loudness_range_lu": 2.7,
+    "true_peak_dbtp": 0.9,
+    "silent_share": 0.0
+  },
+  "linchao/gpt4-education": {
+    "loudness_lufs": -13.5,
+    "loudness_range_lu": 3.7,
+    "true_peak_dbtp": 0.2,
+    "silent_share": 0.0
+  },
+  "mediastorm/e-waste": {
+    "loudness_lufs": -16.1,
+    "loudness_range_lu": 5.4,
+    "true_peak_dbtp": 0.1,
+    "silent_share": 0.0
+  },
+  "mediastorm/highspeed-vs-magic": {
+    "loudness_lufs": -16.2,
+    "loudness_range_lu": 8.3,
+    "true_peak_dbtp": -0.7,
+    "silent_share": 0.015
+  },
+  "xiaolinshuo/ai-power": {
+    "loudness_lufs": -17.3,
+    "loudness_range_lu": 3.6,
+    "true_peak_dbtp": -2.8,
+    "silent_share": 0.0
+  },
+  "xiaolinshuo/mrbeast": {
+    "loudness_lufs": -17.2,
+    "loudness_range_lu": 7.0,
+    "true_peak_dbtp": 0.5,
+    "silent_share": 0.0
+  },
+  "xiaolinshuo/wealth-freedom": {
+    "loudness_lufs": -13.1,
+    "loudness_range_lu": 4.3,
+    "true_peak_dbtp": 0.3,
+    "silent_share": 0.0
+  }
+}

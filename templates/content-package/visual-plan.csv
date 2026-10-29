@@ -1,0 +1,3 @@
+id,timeline_start,timeline_end,audio_anchor,viewer_question,role,effect,asset_claim_ids,image_route,image_need,decision_reason,omit_when,status,render_evidence,notes
+VIS-001,,,首次解释双重验证,它和密码有什么区别,explanation,term-card,CLM-001,search,"""双重验证""设置页的真实截图",补一个新手需要的定义,原画面已有清晰定义且已读完,planned,,先记语义锚点；A-roll 定稿后填剪后时间；此行只是示例
+VIS-002,,,指出当前页面的目标按钮,应该看哪一个按钮,guidance,spotlight,CLM-002,own,本人录屏里的按钮位置,同屏多个相似入口,原鼠标已清楚指示且按钮可读,planned,,资料先核验脱敏；使用后记录实际预览或最终文件证据

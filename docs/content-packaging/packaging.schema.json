@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Video content packaging manifest",
+  "type": "object",
+  "required": ["schema_version", "project", "status", "content_kernel", "structure_variants", "owned_links", "platforms", "covers", "audience_review", "gates"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "project": {"type": "string", "minLength": 1},
+    "status": {"enum": ["draft", "review", "ready", "published", "blocked"]},
+    "content_kernel": {"type": "object", "required": ["audience_state", "promise", "mechanism", "boundary", "proof_claim_ids", "cta"]},
+    "structure_variants": {"type": "array", "minItems": 3},
+    "owned_links": {"type": "object", "properties": {"github": {"type": "string", "format": "uri"}, "website": {"type": "string", "format": "uri"}}},
+    "platforms": {"type": "object", "required": ["xiaohongshu", "douyin", "bilibili", "x"]},
+    "covers": {"type": "object", "required": ["master", "ratios"]},
+    "audience_review": {"type": "object", "required": ["path", "status", "blocking_findings"]},
+    "gates": {"type": "object"}
+  }
+}

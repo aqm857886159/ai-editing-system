@@ -1,0 +1,98 @@
+{
+  "$schema": "../../docs/content-packaging/packaging.schema.json",
+  "schema_version": "1.0",
+  "project": "YYYY-MM-DD-name",
+  "status": "draft",
+  "source": {
+    "video": "",
+    "transcript": "",
+    "evidence_level": "A"
+  },
+  "content_kernel": {
+    "audience_state": "",
+    "promise": "",
+    "mechanism": "",
+    "boundary": "",
+    "proof_claim_ids": [],
+    "cta": ""
+  },
+  "owned_links": {},
+  "structure_variants": [
+    {
+      "id": "pain-mechanism-proof",
+      "name": "痛点 → 误解 → 机制 → 证明 → 行动",
+      "fit": "",
+      "beats": [],
+      "selected": false
+    },
+    {
+      "id": "case-reversal-replay",
+      "name": "案例 → 反转 → 机制 → 复现 → 边界",
+      "fit": "",
+      "beats": [],
+      "selected": false
+    },
+    {
+      "id": "question-experiment-next",
+      "name": "问题 → 小实验 → 观察 → 结论 → 下一步",
+      "fit": "",
+      "beats": [],
+      "selected": false
+    }
+  ],
+  "platforms": {
+    "xiaohongshu": {
+      "titles": [],
+      "description_short": "",
+      "description_long": "",
+      "chapters": []
+    },
+    "douyin": {
+      "titles": [],
+      "description_short": "",
+      "description_long": "",
+      "chapters": []
+    },
+    "bilibili": {
+      "titles": [],
+      "description_short": "",
+      "description_long": "",
+      "chapters": []
+    },
+    "x": {
+      "post": "",
+      "thread": [],
+      "hashtags": []
+    }
+  },
+  "covers": {
+    "master": {
+      "headline": "",
+      "support": "",
+      "hero": "",
+      "anchor": "",
+      "style": "hybrid"
+    },
+    "ratios": {
+      "3:4": {"path": "platform-package/outputs/cover-final-3x4.png", "width": 1080, "height": 1440, "prompt": "", "status": "planned"},
+      "4:3": {"path": "platform-package/outputs/cover-final-4x3.png", "width": 1440, "height": 1080, "prompt": "", "status": "planned"},
+      "16:9": {"path": "platform-package/outputs/cover-final-16x9.png", "width": 1920, "height": 1080, "prompt": "", "status": "planned"}
+    }
+  },
+  "audience_review": {
+    "path": "audience-review.md",
+    "status": "pending",
+    "blocking_findings": []
+  },
+  "gates": {
+    "a_roll": "pending",
+    "evidence_assets": "pending",
+    "copy": "pending",
+    "covers": "pending",
+    "audience_review": "pending",
+    "render_preview": "pending",
+    "caption_audio_mapping": "pending",
+    "privacy": "pending",
+    "final_media_integrity": "pending"
+  }
+}

@@ -1,0 +1,7 @@
+{ "name": "Nomi 数据（Apple 风）", "box": { "width": 920, "height": 270 }, "durationInFrames": 170,
+  "props": [
+    {"key":"brand","type":"text","defaultValue":"Nomi"},{"key":"tagline","type":"text","defaultValue":"一个人做的 AI 视频创作工作台"},
+    {"key":"starTarget","type":"number","defaultValue":500},{"key":"starPlus","type":"text","defaultValue":"+"},{"key":"starCaption","type":"text","defaultValue":"GitHub Stars"},
+    {"key":"userBig","type":"text","defaultValue":"几千"},{"key":"userCaption","type":"text","defaultValue":"真实用户"},{"key":"font","type":"font","defaultValue":"Noto Sans SC"}
+  ],
+  "placement": { "left": 80, "top": 900, "when": "说到『几千个用户』前后，约 5.7 秒" } }

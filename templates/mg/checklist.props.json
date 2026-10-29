@@ -1,0 +1,7 @@
+{ "name": "今天就能做的三件事（Apple 风）", "box": { "width": 920, "height": 390 }, "durationInFrames": 379,
+  "props": [
+    {"key":"title","type":"text","defaultValue":"今天就能做的 3 件事"},
+    {"key":"t1","type":"text","defaultValue":"CLAUDE.md 精简到十几条以内"},{"key":"t2","type":"text","defaultValue":"踩过的坑，记进教训库"},{"key":"t3","type":"text","defaultValue":"重复的动作，固化成 Skill"},
+    {"key":"blue","type":"color","defaultValue":"#0A84FF"},{"key":"font","type":"font","defaultValue":"Noto Sans SC"}
+  ],
+  "placement": { "left": 80, "top": 890, "when": "视频最后 ~12.6 秒，保持到结束" } }

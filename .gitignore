@@ -1,0 +1,12 @@
+.env
+*.local
+.DS_Store
+__pycache__/
+
+# ---- 大体积媒体 / 生成物：不入库（对齐 README「不放原始视频」）----
+*.mp4
+*.mov
+*.wav
+# Agent 临时脚本与中间帧
+.workbuddy/scratch/
+node_modules/

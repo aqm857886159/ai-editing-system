@@ -1,0 +1,4 @@
+# 依赖与逐帧样例只留本地
+node_modules
+assets/samples/frames/
+out/

@@ -1,0 +1,18 @@
+{
+  "preset": "plain",
+  "style": {
+    "color": "#FFFFFF",
+    "fontFamily": "Noto Sans SC",
+    "fontStyle": { "variant": "normal", "weight": "700" },
+    "fontSize": 0.048,
+    "strokeWidth": 0,
+    "textShadow": "none",
+    "letterSpacing": 0,
+    "lineHeight": 1.3,
+    "maxLines": 2,
+    "highlightColor": "#FFFFFF",
+    "normalBackground": { "color": "rgba(28,28,30,0.78)", "borderRadius": 22, "paddingX": 26, "paddingY": 10 }
+  },
+  "fontSizeByCanvas": { "1920x1080": 0.048, "2560x1440": 0.048, "1080x1920": 0.056 },
+  "notes": "用 edit_captions template=plain 后再 style 合并本 JSON 的 style；fontSize 按画布短边归一化（2026-10-27 实测：1920×1080 下 0.027 只有约 29px），按 fontSizeByCanvas 换成当前画幅的值（横屏 0.048 ≈ 1080p 下 52px）。横屏字幕整块要落在 y ≥ 880 的字幕带里，和 explainer-kit 的安全区一致；改字号后逐个讲解场景叠字幕复查。不要用 yellow-impact（黄字黑描边，用户觉得不优雅）。"
+}

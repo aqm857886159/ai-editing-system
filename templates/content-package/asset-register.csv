@@ -1,0 +1,2 @@
+claim_id,claim,asset_kind,source_url,source_title,captured_at,resolution,path,rights,evidence_status,notes
+CLM-001,"把可验证的主张写在这里",official,"https://example.com","官方页面标题",YYYY-MM-DD,"1920x1080","assets/CLM-001.png","official-public",planned,"记录截图范围和版本"

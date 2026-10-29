@@ -1,0 +1,8 @@
+{ "name": "先修体系再改代码（Apple 风）", "box": { "width": 920, "height": 330 }, "durationInFrames": 470,
+  "props": [
+    {"key":"kicker","type":"text","defaultValue":"每次遇到问题"},{"key":"stepA","type":"text","defaultValue":"先修体系"},{"key":"stepB","type":"text","defaultValue":"再改代码"},
+    {"key":"notLabel","type":"text","defaultValue":"不是着急改功能"},
+    {"key":"stepBAt","type":"number","defaultValue":207,"note":"『再改代码』出现的帧，对齐语音『然后呢，再去具体的写那个代码』；本次用 236"},
+    {"key":"blue","type":"color","defaultValue":"#0A84FF"},{"key":"danger","type":"color","defaultValue":"#FF453A"},{"key":"font","type":"font","defaultValue":"Noto Sans SC"}
+  ],
+  "placement": { "left": 80, "top": 920, "when": "讲『我们每一次遇到问题的时候…先去优化那个体系』" } }

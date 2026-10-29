@@ -1,0 +1,4 @@
+# 原视频、音频和逐帧截图只留本地
+*/media/
+*/work/*-frames/
+*/work/*.cuts.txt

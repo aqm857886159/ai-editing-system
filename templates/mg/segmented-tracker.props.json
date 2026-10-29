@@ -1,0 +1,8 @@
+{ "name": "五道防线分段控件（Apple 风）", "box": { "width": 1000, "height": 108 }, "durationInFrames": "= 控件出现到消失的总帧数（本次 9533）",
+  "props": [
+    {"key":"l1..l5","type":"text","defaultValue":"CLAUDE.md / 教训库 / Skill / Hook / 门岗"},
+    {"key":"s2..s5","type":"number","note":"第 2~5 项开始的『相对控件起点』帧数；本次 1963 / 3110 / 5767 / 7821"},
+    {"key":"font","type":"font","defaultValue":"Noto Sans SC"}
+  ],
+  "placement": { "left": 40, "top": 1610, "when": "讲完钩子后开始，到最后一个分段讲完" },
+  "note": "白色滑块在分段间滑动（iOS segmented control 风格）。持续时间长于资产时长时需重建资产。" }

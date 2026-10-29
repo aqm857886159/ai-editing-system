@@ -1,0 +1,20 @@
+{
+  "name": "apple-glass-dark",
+  "canvas": { "width": 1080, "height": 1920, "fps": 30 },
+  "color": {
+    "panel": "rgba(28,28,30,0.74)",
+    "panelBorder": "rgba(255,255,255,0.14)",
+    "text": "#FFFFFF",
+    "textSecondary": "rgba(255,255,255,0.58)",
+    "textTertiary": "rgba(255,255,255,0.32)",
+    "accent": "#0A84FF",
+    "accentSoft": "rgba(10,132,255,0.22)",
+    "danger": "#FF453A",
+    "success": "#30D158"
+  },
+  "radius": { "card": 44, "pill": 54, "row": 22, "caption": 22 },
+  "shadow": "0 30px 70px rgba(0,0,0,0.38)",
+  "font": { "family": "Noto Sans SC", "latinAlt": "Inter", "weights": { "title": 700, "body": 600, "secondary": 500 } },
+  "motion": { "spring": { "damping": 22, "stiffness": 120 }, "enter": "translateY(24px) scale(.97) + fade", "exitFrames": 14 },
+  "safeZones9x16": { "face": [100, 880], "cards": [890, 1330], "captions": [1380, 1500], "bottomControl": [1610, 1720], "platformUI": { "top": 150, "bottomFrom": 1650 } }
+}
