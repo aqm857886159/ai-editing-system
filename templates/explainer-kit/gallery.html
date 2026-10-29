@@ -40,10 +40,42 @@ const SAMPLES = {
   replayTag: () => KIT.replayTag({ speed: '0.5×', pip: true, pipLabel: '我第一次看到' }),
   sectionTag: () => KIT.sectionTag({ kicker: '情况一', text: '跟着师傅干', step: [1, 3] }),
   backText: () => KIT.backText({ words: ['师傅', '带徒弟'], key: 1, fg: A + 'host-cut.png' }),
+  docZoom: () => KIT.docZoom({ image: A + 'doc-s1.png', iw: 1636, ih: 2116, source: 'Anthropic 招股书 S-1 · 合并财务数据摘要', dur: 12, steps: [
+    { t: 1.0, box: [193, 731, 905, 30], s: 1.25, label: '利润表', en: 'Statements of Operations', tone: 'accent' },
+    { t: 3.6, box: [193, 875, 1252, 30], cell: [1340, 877, 106, 26], col: '2026 年 1–6 月', label: '收入', en: 'Revenue', value: '1094', unit: '亿元', sub: '（163 亿美元）', note: '表里单位是百万美元：16,286 = 163 亿美元' },
+    { t: 7.8, box: [193, 1378, 1252, 30], cell: [1340, 1380, 106, 26], col: '2026 年 1–6 月', label: '净亏损', en: 'Net loss', value: '−5420', unit: '亿元', sub: '（−807 亿美元）', note: '算上所有账面项目之后，最后一行' },
+  ] }),
   roleCard: () => KIT.roleCard({ roles: [{ label: '师傅', en: 'Master', photo: A + 'apprentice.jpg', pos: '85% 20%', says: [{ text: '我缺人手', t: .9 }, { text: '手艺得有人接', t: 1.5 }] }], dur: 6 }),
   roleCard2: () => KIT.roleCard({ kicker: '学徒制里的两方', title: '各自想要什么', roles: [{ label: '师傅', en: 'Master', photo: A + 'apprentice.jpg', pos: '85% 20%', says: [{ text: '我缺人手', t: 1 }, { text: '手艺得有人接', t: 1.4 }] }, { label: '徒弟', en: 'Apprentice', photo: A + 'apprentice.jpg', pos: '45% 40%', says: [{ text: '我想学手艺', t: 1.8 }, { text: '管吃住就行', t: 2.2 }] }], links: [{ from: 0, to: 1, label: '教手艺', t: 3 }, ], active: [[5, 1]], dur: 8 }),
 };
 const [name, ...flags] = location.hash.slice(1).split('&');
-// 叠加层组件预览时垫一张底图（&guides 或 &bg）；导出 ProRes 时不加
-bootKit((SAMPLES[name] || SAMPLES.formula)(), { guides: flags.includes('guides'), backdrop: flags.some(f => f === 'guides' || f === 'bg') ? A + (name === 'backText' ? 'host.jpg' : 'factory.jpg') : '' });
+if (!name) {
+  // 首页：全部组件一起循环播放，点一个看大图
+  document.head.insertAdjacentHTML('beforeend', `<style>
+    body{margin:0;background:#0b0c10;color:#e8eaf0;font-family:"PingFang SC",sans-serif}
+    h1{font-size:28px;margin:28px 32px 4px}p{margin:0 32px 20px;color:#8a90a0;font-size:15px}
+    .wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;padding:0 32px 40px}
+    .tile{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000;box-shadow:0 6px 24px #0008}
+    .tile iframe{position:absolute;left:0;top:0;width:1920px;height:1080px;border:0;transform-origin:0 0;pointer-events:none}
+    .tile a{position:absolute;inset:0;z-index:1}
+    .name{font-size:14px;color:#aab0c0;margin-top:6px}</style>`);
+  const names = Object.keys(SAMPLES);
+  document.body.innerHTML = `<h1>讲解组件库 · ${names.length} 个样例</h1><p>每个都在循环播放；点开看大图。地址里改 #组件名 可以单独看一个，加 &guides 显示字幕带和人物小窗。</p><div class="wall">` +
+    names.map(n => `<div><div class="tile"><iframe loading="lazy" src="gallery.html#${n}&play&bg"></iframe><a href="gallery.html#${n}&play&bg" target="_blank"></a></div><div class="name">${n}</div></div>`).join('') + '</div>';
+  const fit = () => document.querySelectorAll('.tile').forEach(t => t.querySelector('iframe').style.transform = `scale(${t.clientWidth / 1920})`);
+  addEventListener('resize', fit); fit();
+  addEventListener('hashchange', () => location.reload());
+} else {
+  // 叠加层组件预览时垫一张底图（&guides 或 &bg）；导出 ProRes 时不加
+  bootKit((SAMPLES[name] || SAMPLES.formula)(), { guides: flags.includes('guides'), backdrop: flags.some(f => f === 'guides' || f === 'bg') ? A + (name === 'backText' ? 'host.jpg' : 'factory.jpg') : '' });
+  addEventListener('hashchange', () => location.reload());
+  if (flags.includes('play')) {
+    // 浏览器里看：按窗口缩放，循环播放（渲染导出不加 &play，画面只由 render(t) 决定）
+    const fit = () => { const k = Math.min(innerWidth / 1920, innerHeight / 1080); document.body.style.transform = `scale(${k})`; document.body.style.transformOrigin = '0 0'; document.documentElement.style.background = '#000'; };
+    addEventListener('resize', fit); fit();
+    const dur = window.DURATION || 6, t0 = performance.now();
+    const tick = now => { const t = ((now - t0) / 1000) % (dur + 1.5); window.render(Math.min(t, dur)); requestAnimationFrame(tick); };
+    document.fonts.ready.then(() => requestAnimationFrame(tick));
+  }
+}
 </script></body></html>
