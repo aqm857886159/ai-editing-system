@@ -81,3 +81,7 @@ AI 每次开工先读这些，你就不用每次从头交代。
 - 规则偏中文平台（抖音、小红书、B 站、X）上的口播和知识讲解类视频，默认横屏。
 - 作者自己的项目、素材、账号数据都没有放进来。文档里提到的 `projects/2026-…` 例子你这里看不到，照着规则做就行。
 - `docs/dbskill/` 来自 [dontbesilent2025/dbskill](https://github.com/dontbesilent2025/dbskill)，许可是 CC BY-NC 4.0（不可商用），用的时候请保留署名。
+
+## 许可
+
+除 `docs/dbskill/` 以外，都按 [MIT](LICENSE) 开源：随便用、改、商用都行，保留版权声明即可。
