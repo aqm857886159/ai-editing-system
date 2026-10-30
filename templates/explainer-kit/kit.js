@@ -963,6 +963,89 @@ KIT.roleCard = p => {
   };
 };
 
+// 路线图：长片的总地图。几站连成一条线，“现在在这”跟着讲解往前走，走过的站变实心。
+// 每讲完一站回到它，观众始终知道讲到哪、还剩几站。stops[{label,en,sub,me}]：sub 一行小字写这站包含什么，me 写“我”在这站做的事
+// here[[t,i]] 标记移到第 i 站；不给 here 时只画路线
+KIT.routeMap = p => {
+  const n = p.stops.length, L = 300, R = 1620, Y = 470, gap = (R - L) / (n - 1), X = i => L + i * gap;
+  return {
+    dur: p.dur || 6,
+    html: frame(`<div class="panel"></div>
+      <div class="abs" style="left:180px;top:120px"><div class="kicker" id="rk">${p.kicker || ''}</div><div class="h2" style="margin-top:8px" id="rt">${p.title}</div></div>
+      <div class="abs" style="left:${L}px;top:${Y - 4}px;width:${R - L}px;height:8px;border-radius:4px;background:rgba(255,255,255,.12)" id="rl"></div>
+      <div class="abs" style="left:${L}px;top:${Y - 4}px;width:0;height:8px;border-radius:4px;background:var(--accent);box-shadow:0 0 24px rgba(10,132,255,.6)" id="rf"></div>
+      ${p.stops.map((s, i) => `<div class="abs" id="rs${i}" style="left:${X(i) - 30}px;top:${Y - 30}px;width:60px;height:60px;border-radius:50%;border:6px solid rgba(255,255,255,.35);background:#15161c"></div>
+        <div class="abs" id="rx${i}" style="left:${X(i) - gap / 2}px;top:${Y + 60}px;width:${gap}px;text-align:center">
+          <div class="num dim" style="font-size:30px">${String(i + 1).padStart(2, '0')}</div>
+          <div class="h3" style="font-size:46px;margin-top:10px;white-space:nowrap">${s.label}</div>
+          ${s.sub ? `<div style="margin:14px auto 0;width:${gap - 40}px;font-size:28px;font-weight:600;line-height:1.4;color:var(--fg2)">${s.sub}</div>` : ''}
+          ${s.me ? `<div style="margin-top:16px"><span class="pill" style="font-size:26px;color:#fff;border-color:rgba(130,185,255,.7)">我：${s.me}</span></div>` : ''}</div>`).join('')}
+      <div class="abs" id="rh" style="left:0;top:${Y - 150}px;opacity:0"><div style="transform:translateX(-50%);display:flex;flex-direction:column;align-items:center">
+        <span style="padding:12px 26px;border-radius:16px;background:var(--signal);color:#111;font-size:32px;font-weight:800;white-space:nowrap">现在在这</span>
+        <i style="width:0;height:0;border-left:16px solid transparent;border-right:16px solid transparent;border-top:20px solid var(--signal)"></i></div></div>`),
+    render: t => {
+      enter($('#rk'), t, .2); enter($('#rt'), t, .35);
+      css($('#rl'), { transform: `scaleX(${eo3(seg(t, .3, 1.3))})`, transformOrigin: 'left' });
+      const hs = p.here || [], cur = at(hs, t, -1), d = since(hs, t);
+      const prev = hs.filter(([ti]) => ti <= t).slice(-2, -1).map(h => h[1])[0] ?? cur;
+      const pos = cur < 0 ? -1 : lerp(prev, cur, eio3(d / .7));
+      css($('#rf'), { width: `${pos < 0 ? 0 : pos * gap}px` });
+      p.stops.forEach((s, i) => {
+        const t0 = .5 + i * .14, e = spring(t - t0), here = i === cur, past = cur >= 0 && i < pos + .01 && !here;
+        const fx = here ? stateFx('sig', d - .5) : { pop: 1, flash: 1 };
+        css($('#rs' + i), { opacity: clamp((t - t0) / .25), transform: `scale(${(.6 + .4 * e) * fx.pop * (here ? 1.2 : 1)})`, background: here ? 'var(--signal)' : past ? 'var(--accent)' : '#15161c', borderColor: here ? 'rgba(255,224,160,.95)' : past ? 'rgba(130,185,255,.9)' : 'rgba(255,255,255,.35)', boxShadow: here ? `0 0 ${40 * fx.flash}px rgba(255,194,74,.6)` : 'none' });
+        css($('#rx' + i), { opacity: clamp((t - t0 - .1) / .3) * (cur >= 0 && !here ? .5 : 1), transform: `translateY(${(1 - e) * 24}px)` });
+      });
+      const h = $('#rh');
+      css(h, { opacity: cur < 0 ? 0 : clamp(d / .3), left: `${L + Math.max(0, pos) * gap}px`, transform: `translateY(${Math.sin(t * 3) * 6}px)` });
+      frameRender(t, introKeys(0, p.dur || 6));
+    }
+  };
+};
+
+// 决策图：一个问题分出几条路，每条路一个条件、一个做法，做法卡上放一个真实例子。讲到哪条亮哪条，其余压暗。
+// root 是那个问题；branches[{cond,result,sub,en,t,images:[{src,tag,pos}],ph}]：cond 是条件，result 是做法；
+// images 放一到两张真实例子（tag 写出处或“AI 生成 · 示意”），没有图时 ph 写一句占位（如“拍不到”）；t 是这条路出现的时刻，不给就跟着依次出现
+// active[[t,i]] 亮第 i 条；foot 是底部一行小字（口径、补充），footT 出现时刻
+KIT.decisionTree = p => {
+  const n = p.branches.length, gx = 36, W = (1600 - (n - 1) * gx) / n, left = 160, pics = p.branches.some(b => b.images || b.ph);
+  const X = i => left + i * (W + gx), RY = 170, CY = 320, KY = 410, KH = pics ? 360 : 250, IH = 180;
+  const tB = i => p.branches[i].t ?? (.9 + i * .18);
+  return {
+    dur: p.dur || 8,
+    html: frame(`<div class="panel"></div>
+      <div class="abs" style="left:0;right:0;top:${RY - 100}px;text-align:center"><div class="kicker" id="dk">${p.kicker || ''}</div></div>
+      <div class="abs" id="dr" style="left:50%;top:${RY - 50}px;transform:translateX(-50%)"><div class="tile on" style="padding:18px 52px 22px;border-radius:32px;white-space:nowrap"><span class="h2">${p.root}</span></div></div>
+      <svg class="abs" style="left:0;top:0;overflow:visible" width="1920" height="1080">${p.branches.map((b, i) => { const x = X(i) + W / 2; return `<path id="dl${i}" d="M960 ${RY + 74} C960 ${RY + 120} ${x} ${CY - 80} ${x} ${CY - 6}" fill="none" stroke="rgba(130,185,255,.75)" stroke-width="4" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+        <path id="dm${i}" d="M${x} ${CY + 70} L${x} ${KY - 6}" fill="none" stroke="rgba(130,185,255,.75)" stroke-width="4" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>`; }).join('')}</svg>
+      ${p.branches.map((b, i) => `<div class="abs" id="dc${i}" style="left:${X(i)}px;top:${CY}px;width:${W}px;height:70px;display:flex;align-items:center;justify-content:center;border-radius:999px;background:rgba(20,22,30,.9);border:2px solid rgba(255,255,255,.18);font-size:32px;font-weight:700;white-space:nowrap">${b.cond}</div>
+        <div class="tile abs" id="dt${i}" style="left:${X(i)}px;top:${KY}px;width:${W}px;height:${KH}px;padding:0;border-radius:30px">
+          ${pics ? `<div class="abs" style="left:0;top:0;right:0;height:${IH}px;display:flex;gap:4px;background:rgba(255,255,255,.03)">${(b.images || []).map(im => `<div style="position:relative;flex:1;overflow:hidden"><img src="${im.src}" style="width:100%;height:100%;object-fit:${im.fit || 'cover'};object-position:${im.pos || 'center'}">${im.tag ? `<span style="position:absolute;left:10px;bottom:10px;padding:5px 14px;border-radius:10px;background:rgba(8,8,12,.8);font-size:26px;font-weight:700;color:var(--fg);white-space:nowrap">${im.tag}</span>` : ''}</div>`).join('') || `<div style="flex:1;display:flex;align-items:center;justify-content:center;border-bottom:2px dashed rgba(255,255,255,.18);font-size:30px;font-weight:700;color:var(--fg3)">${b.ph || ''}</div>`}</div>` : ''}
+          <div class="abs" style="left:28px;right:24px;top:${pics ? IH + 22 : 30}px"><div class="lb" style="font-size:52px;font-weight:800;white-space:nowrap">${b.result}</div>
+          ${b.sub ? `<div style="margin-top:12px;font-size:28px;font-weight:600;line-height:1.4;color:var(--fg2)">${b.sub}</div>` : ''}</div></div>`).join('')}
+      ${p.foot ? `<div class="abs dim" id="df" style="left:0;right:0;top:${KY + KH + 14}px;text-align:center;font-size:28px;font-weight:600">${p.foot}</div>` : ''}`),
+    render: t => {
+      enter($('#dk'), t, .2);
+      css($('#dr'), { opacity: clamp((t - .35) / .3), transform: `translateX(-50%) scale(${.9 + .1 * spring(t - .35)})` });
+      const act = at(p.active || [], t, -1), ad = since(p.active || [], t);
+      p.branches.forEach((b, i) => {
+        const t0 = tB(i), on = act === i, dim = act >= 0 && !on, e = spring(t - t0 - .45);
+        css($('#dl' + i), { strokeDashoffset: 1 - eo3(seg(t, t0, t0 + .45)), stroke: on ? 'var(--signal)' : 'rgba(130,185,255,.75)', opacity: dim ? .3 : 1 });
+        css($('#dm' + i), { strokeDashoffset: 1 - eo3(seg(t, t0 + .35, t0 + .6)), stroke: on ? 'var(--signal)' : 'rgba(130,185,255,.75)', opacity: dim ? .3 : 1 });
+        css($('#dc' + i), { opacity: clamp((t - t0 - .25) / .25) * (dim ? .4 : 1), transform: `scale(${.9 + .1 * spring(t - t0 - .25)})`, borderColor: on ? 'rgba(255,214,140,.95)' : 'rgba(255,255,255,.18)', color: on ? 'var(--signal)' : 'var(--fg)' });
+        const el = $('#dt' + i), fx = on ? stateFx('sig', ad) : { pop: 1, flash: 1, z: 0 };
+        el.className = 'tile abs' + (on ? ' sig' : '');
+        css(el, { opacity: clamp((t - t0 - .45) / .3) * (dim ? .4 : 1), transform: `translateZ(${fx.z}px) translateY(${(1 - e) * 40}px) scale(${(.95 + .05 * e) * fx.pop})`, filter: `brightness(${fx.flash}) saturate(${dim ? .4 : 1})` });
+      });
+      if ($('#df')) css($('#df'), { opacity: clamp((t - (p.footT ?? tB(n - 1) + 1)) / .4) });
+      const keys = introKeys(0, p.dur || 8);
+      (p.active || []).forEach(([ta, i]) => keys.push([ta + .1, keys[keys.length - 1][1]], [ta + .8, push({ x: 960 + (X(i) + W / 2 - 960) * .12, y: 520 }, 1)]));
+      keys.sort((a, b) => a[0] - b[0]);
+      frameRender(t, keys);
+    }
+  };
+};
+
 // ---------- 启动 ----------
 function bootKit(comp, { guides = false, backdrop = '' } = {}) {
   const st = document.createElement('style'); st.textContent = KIT_CSS; document.head.appendChild(st);

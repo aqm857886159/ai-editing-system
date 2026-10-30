@@ -45,6 +45,12 @@ const SAMPLES = {
     { t: 3.6, box: [193, 875, 1252, 30], cell: [1340, 877, 106, 26], col: '2026 年 1–6 月', label: '收入', en: 'Revenue', value: '1094', unit: '亿元', sub: '（163 亿美元）', note: '表里单位是百万美元：16,286 = 163 亿美元' },
     { t: 7.8, box: [193, 1378, 1252, 30], cell: [1340, 1380, 106, 26], col: '2026 年 1–6 月', label: '净亏损', en: 'Net loss', value: '−5420', unit: '亿元', sub: '（−807 亿美元）', note: '算上所有账面项目之后，最后一行' },
   ] }),
+  routeMap: () => KIT.routeMap({ kicker: '一条片怎么走', title: '五站', stops: [{ label: '选题开头', sub: '读完全文，先排顺序' }, { label: '剪讲话', sub: '按整句取舍' }, { label: '找素材', sub: '实拍、搜索、生成', me: '看样张' }, { label: '配声音', sub: '音乐、音效、响度' }, { label: '封面发布', sub: '三个比例，发完读回', me: '说“发”' }], here: [[1.6, 0], [3.2, 2]], dur: 6 }),
+  decisionTree: () => KIT.decisionTree({ kicker: '每个画面，先问一句', root: '要的这个东西，现实里有吗？', dur: 9,
+    branches: [{ cond: '真实存在的', result: '只搜，不生成', sub: '财报、产品、新闻页', images: [{ src: A + 'doc-s1.png', tag: '官方原文', pos: 'center 35%' }] },
+      { cond: '一类通用场景', result: '先搜素材库', sub: '库存没有合适的，再生成', images: [{ src: A + 'factory.jpg', tag: '库存' }, { src: A + 'apprentice.jpg', tag: 'AI 生成 · 示意' }] },
+      { cond: '抽象概念', result: 'AI 生成', sub: '拍不到的东西', ph: '拍不到' }],
+    active: [[4, 0], [6, 1]], foot: '示意：素材来自 2026-10-24 那一片和 Anthropic 那一集', footT: 3 }),
   roleCard: () => KIT.roleCard({ roles: [{ label: '师傅', en: 'Master', photo: A + 'apprentice.jpg', pos: '85% 20%', says: [{ text: '我缺人手', t: .9 }, { text: '手艺得有人接', t: 1.5 }] }], dur: 6 }),
   roleCard2: () => KIT.roleCard({ kicker: '学徒制里的两方', title: '各自想要什么', roles: [{ label: '师傅', en: 'Master', photo: A + 'apprentice.jpg', pos: '85% 20%', says: [{ text: '我缺人手', t: 1 }, { text: '手艺得有人接', t: 1.4 }] }, { label: '徒弟', en: 'Apprentice', photo: A + 'apprentice.jpg', pos: '45% 40%', says: [{ text: '我想学手艺', t: 1.8 }, { text: '管吃住就行', t: 2.2 }] }], links: [{ from: 0, to: 1, label: '教手艺', t: 3 }, ], active: [[5, 1]], dur: 8 }),
 };

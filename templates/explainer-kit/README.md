@@ -60,6 +60,8 @@ node lint.js 'gallery.html#formula'                                  # 体检
 | `categoryNav` | 几个并列部分，当前项亮；每项给 `image` 时变成一排画面卡，讲之前先把几种情况一起亮出来 | `items[{label,en,icon,kicker,image,pos}]`、`active[[t,i]]` |
 | `layerStack` | N 层 / N 项逐项推进，回全景对比 | `items[{label,en,icon,sub}]`、`active`、`overview`、`compare{cols,marks,t}`、`bottomUp` |
 | `chain` | 有先后顺序的流程 | `steps[{label,en,t,sub}]` |
+| `routeMap` | 长片的总地图：几站连成一条线，“现在在这”跟着往前走，每讲完一站回来一次。只做导航，一次 3–4 秒，前后要接真实画面 | `stops[{label,sub,me}]`（`me` 写“我”在这站做的事）、`here[[t,i]]` |
+| `decisionTree` | 一个问题分几条路：每条一个条件、一个做法，做法卡上放过去片子里的真实例子；讲到哪条亮哪条 | `root`、`branches[{cond,result,sub,images[{src,tag,pos,fit}],ph,t}]`、`active[[t,i]]`、`foot`、`footT` |
 | `formula` | 贯穿全片、逐项长大的主线 | `eq`、`slots`、`changes`（每格 `[t,'on'|'off'|'wait'|'sig',说明]`）、`header` |
 | `docZoom` | 真实截图（财报、条款、网页）：整页一眼 → 推到那一行 → 画住 + 压暗其余 → 中文翻译标签；一行一步 | `image`、`iw`、`ih`、`steps[{t,box,cell,col,label,en,value,unit,sub,note,tone,hold,win,tagX,tagY}]`、`source`、`startStep`、`win`（图表、目录这种要整张露出的，给那一步 `win:[x,y,w,h]`；高的框用 `tagX/tagY` 把标签放到空处） |
 | `evidence` | 没有截图、只有文字时的原文示意（有截图一律用 `docZoom`） | `cover`、`lines`、`hl{line,from,to,t}`、`source` |
